@@ -1,28 +1,59 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <FormClient :clients="clients"/>
+    <hr>
+    <ClientList :clients="orderClients"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  import ClientList from "./components/ClientList";
+  import FormClient from "./components/FormClient";
+  import _ from "lodash";
+  
+  export default {
+    name: 'App',
+    components: {
+      FormClient,
+      ClientList
+    },
+    data() {
+      return {
+        clients: [{
+            id: 1,
+            name: "Caio",
+            age: 28,
+            email: "caio@teste.com",
+            showEmail: false,
+            isPremium: true
+          },
+          {
+            id: 2,
+            name: "Pedro",
+            age: 27,
+            email: "pedro@teste.com",
+            showEmail: true,
+            isPremium: false
+          },
+          {
+            id: 3,
+            name: "Cristiano",
+            age: 26,
+            email: "cristiano@teste.com",
+            showEmail: true,
+            isPremium: true
+          },
+        ]
+      }
+    },
+    computed:{
+      orderClients(){
+        return _.orderBy(this.clients, ["name"],["asc"]);
+      }
+    }
   }
-}
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
